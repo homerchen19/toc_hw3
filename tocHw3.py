@@ -8,18 +8,18 @@ total_list= []
 dict1 = {}
 
 for line in infile:
-	url = re.findall('"WARC-Target-URI"[ :]+((?=\[)\[[^]]*\]|(?=\{)\{[^\}]*\}|\"[^"]*\")', line) 
+	url = re.findall('"WARC-Target-URI":"[^"]*"', line) 
 	str_url = ''.join(url)
 	url2 = re.findall('"([^"]*)"', str_url)
 	str_url = ''.join(url2)
 
-	links = re.findall('"Links"[ :]+((?=\[)\[[^]]*\]|(?=\{)\{[^\}]*\}|\"[^"]*\")', line)
+	links = re.findall('"Links":((?=\[)\[[^]]*\]|(?=\{)\{[^\}]*\}|\"[^"]*\")', line)
 	str_tmp = ''.join(links)
 
-	href = re.findall('"href"[ :]+\"[^"]*\"', str_tmp)
+	href = re.findall('"href":"[^"]*"', str_tmp)
 	num_href = len(href)
 
-	url = re.findall('"url"[ :]+\"[^"]*\"', str_tmp)
+	url = re.findall('"url":"[^"]*"', str_tmp)
 	num_url = len(url)
 
 	total = num_href + num_url
