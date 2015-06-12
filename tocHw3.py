@@ -1,6 +1,7 @@
 import re
 import sys
-#coding:utf-8
+#import time
+#tStart = time.time()
 
 infile = open(sys.argv[1], 'r')
 topk = int(sys.argv[2])
@@ -8,18 +9,17 @@ total_list= []
 dict1 = {}
 
 for line in infile:
-	url = re.findall('"WARC-Target-URI":"[^"]*"', line) 
+	url = re.findall('"WARC-Target-URI":"([^"]*)"', line) 
 	str_url = ''.join(url)
-	url2 = re.findall('"([^"]*)"', str_url)
-	str_url = ''.join(url2)
 
-	links = re.findall('"Links":((?=\[)\[[^]]*\]|(?=\{)\{[^\}]*\}|\"[^"]*\")', line)
-	str_tmp = ''.join(links)
+	links = re.findall('"Links":(\[(\{([^\}])*\})(\,\{[^\}]*\})*([^\]]*)\])', line)
 
-	href = re.findall('"href":"[^"]*"', str_tmp)
+	str_links = ''.join(str(i) for i in links)
+
+	href = re.findall('"href":+\"http[s]?://([^"]*\")', str_links)
 	num_href = len(href)
 
-	url = re.findall('"url":"[^"]*"', str_tmp)
+	url = re.findall('"url":+\"http[s]?://([^"]*\")', str_links)
 	num_url = len(url)
 
 	total = num_href + num_url
@@ -57,11 +57,6 @@ def merge(left, right):
 
 #print total_list
 total_list = merge_sort(total_list) #do merge_sort
-'''print total_list
-print
-print 'topk:'
-print total_list[:topk]'''
-
 
 count = 0
 for i in range(0, topk):
@@ -76,3 +71,5 @@ for i in range(0, topk):
 	count += len(tmplist) 
 	if count >= topk: #in case lenth of list exceed topk
 		break
+#tEnd = time.time()
+#print "It cost %f sec" % (tEnd - tStart)
