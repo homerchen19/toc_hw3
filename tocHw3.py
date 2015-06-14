@@ -46,14 +46,13 @@ for line in infile:
 	url = re.findall('"WARC-Target-URI":"([^"]*)"', line) 
 	str_url = ''.join(url)
 
-	links = re.findall('"Links"[ :]+(\[[^]]*\])', line)
-
+	links = re.findall('"Links":\[(.+)\](,"Head"|\},"Entity-Digest")', line)
 	str_links = ''.join(str(i) for i in links)
 
-	href = re.findall('"href"[ :]+\"[^"]*\"', str_links)
+	href = re.findall('"href"[ :]+\"([^"]*)\"', str_links)
 	num_href = len(href)
 
-	url = re.findall('"url"[ :]+\"[^"]*\"', str_links)
+	url = re.findall('"url"[ :]+\"([^"]*)\"', str_links)
 	num_url = len(url)
 
 	total = num_href + num_url
