@@ -1,10 +1,44 @@
 import re
 import sys
+import os.path
 import time
 tStart = time.time()
 
-infile = open(sys.argv[1], 'r')
+def validate_inputfile():
+	try:
+		filename = sys.argv[1]
+		if os.path.exists(filename):
+			pass
+		else:
+			raise IOError
+	except IndexError:
+		print "There is no input file"
+		sys.exit(0)
+	except IOError:
+		print "There is no such file: {0}".format(filename)
+		sys.exit(0)
+	return filename
+
+def validate_topk():
+	try:
+		topk = sys.argv[2]
+		if os.path.exists(topk):
+			pass
+		elif topk < 0:
+			raise ValueError
+	except IndexError:
+		print "There is no topk"
+		sys.exit(0)
+	except ValueError:
+		print "The topk must be positive integer"
+		sys.exit(0)
+
+
+valid_infile = validate_inputfile()
+infile = open(valid_infile, 'r')
+validate_topk()
 topk = int(sys.argv[2])
+
 total_list= []
 dict1 = {}
 
