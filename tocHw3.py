@@ -1,3 +1,17 @@
+'''
+學號:F74016297
+系級:資訊105甲班
+姓名:陳自泓
+程式簡單說明:
+	一開始先做輸入檔案與topk的確認，
+	分別是(1)verify_inputfile跟(2)verify_topk 這兩個function
+	接著一行一行讀檔案，
+	然後依序用regux抓"WARC-Target-URI","Links","href","url"
+	並把"Links"跟"url"的數目用list存下來,
+	當list排序後，
+	用一個dictionary去存"WARC-Target-URI"和其總數目的相對值
+	最後依照topk的數目來印出dictionary中的數目跟網址
+'''
 import re
 import sys
 import os.path
