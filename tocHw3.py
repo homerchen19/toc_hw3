@@ -1,3 +1,4 @@
+# coding=UTF-8
 '''
 學號:F74016297
 系級:資訊105甲班
@@ -18,7 +19,7 @@ import os.path
 #import time
 #tStart = time.time()
 
-#f = open('outfile.txt', 'w')
+f = open('outfile.txt', 'w')
 
 def verify_inputfile():
 	inputfile = sys.argv[1]
