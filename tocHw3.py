@@ -19,15 +19,19 @@ import os.path
 #import time
 #tStart = time.time()
 
-f = open('outfile.txt', 'w')
+#f = open('outfile.txt', 'w')
 
 def verify_inputfile():
+	if len(sys.argv) < 2:
+		print "There is no input file and topk !"
+		sys.exit(0)
 	inputfile = sys.argv[1]
 	if os.path.exists(inputfile):
 		pass
 	elif not os.path.exists(inputfile):
 		print "There is no " + inputfile
 		sys.exit(0)
+	
 	else:
 		print "There is no input file !"
 		sys.exit(0)
